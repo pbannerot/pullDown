@@ -34,7 +34,7 @@ void clearSegments() {
 
 void clearDigits() {
 	for (uint8_t digit = 0; digit < NUM_OF_DIGITS; digit++) {
-		digitalWrite(digits[digit], LOW);
+		digitalWrite(digits[digit], HIGH);
 	}
 }
 
@@ -85,7 +85,7 @@ uint8_t* getDisplayValue(uint8_t value) {
 void displayNumber() {
 	for (uint8_t digit = 0; digit < NUM_OF_DIGITS; digit++) {
 		clearLEDs();
-		digitalWrite(digits[digit], HIGH);
+		digitalWrite(digits[digit], LOW);
 		for (uint8_t segment = 0; segment < NUM_OF_SEGMENTS; segment++) {
 			digitalWrite(segments[segment],
 					getDisplayValue(digitValues[digit])[segment]);
@@ -109,12 +109,9 @@ void updateCurrentValue() {
 	} else {
 		currentValue = 0;
 	}
-	PORTB ^= (1 << PB7);
 }
 
 void setup() {
-	DDRB = (1 << PB7);
-
 	pinMode(SEG_A, OUTPUT);
 	pinMode(SEG_B, OUTPUT);
 	pinMode(SEG_C, OUTPUT);
